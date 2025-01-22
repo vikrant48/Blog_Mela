@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Container, Logo, LogoutBtn } from '../index'
 
 function Header() {
     const authStatus = useSelector((state) => state.auth.status)
+    const [menuOpen, setMenuOpen] = useState(false)
     const navigate = useNavigate()
 
     const navItems = [
@@ -37,14 +38,43 @@ function Header() {
     return (
         <header className="py-4 shadow-lg bg-gradient-to-r from-gray-800 via-gray-700 to-gray-600">
             <Container>
-                <nav className="flex items-center">
+                <nav className="flex items-center flex-wrap">
+                    {/* Logo Section */}
                     <div className="mr-6">
                         <Link to="/">
                             <Logo width="70px" />
                         </Link>
                     </div>
 
-                    <ul className="flex ml-auto space-x-6">
+                    {/* Hamburger Menu for Small Screens */}
+                    <div className="ml-auto lg:hidden">
+                        <button
+                            id="menu-toggle"
+                            className="text-white focus:outline-none focus:ring-2 focus:ring-teal-400"
+                            onClick={() => setMenuOpen(!menuOpen)} // Toggle menu visibility
+                        >
+                            <svg
+                                className="w-6 h-6"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M4 6h16M4 12h16m-7 6h7"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+
+                    {/* Navigation Items */}
+                    <ul
+                        className={`flex-col space-y-4 lg:space-y-0 lg:flex lg:flex-row lg:ml-auto lg:space-x-6 items-center transition-all duration-300 ${menuOpen ? "flex" : "hidden"
+                            } lg:flex`}
+                    >
                         {navItems.map(
                             (item) =>
                                 item.active && (
@@ -67,7 +97,6 @@ function Header() {
                 </nav>
             </Container>
         </header>
-
     )
 }
 
