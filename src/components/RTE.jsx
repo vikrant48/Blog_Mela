@@ -14,7 +14,8 @@ function RTE({ name, control, label, defaultValue = "", rules = {} }) {
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                     <div>
                         <Editor
-                            apiKey= {import.meta.env.VITE_RTE_API_KEY}
+                            // apiKey= {import.meta.env.VITE_RTE_API_KEY  || cecbjduh7ffo9nd53tgj6j2iy4jkldjjrpln9r2if63taqic}
+                            apiKey='cecbjduh7ffo9nd53tgj6j2iy4jkldjjrpln9r2if63taqic'
                             value={value || defaultValue}  
                             init={{
                                 height: 500,
